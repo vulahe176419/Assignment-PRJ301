@@ -4,7 +4,6 @@
  */
 package dal;
 
-import dal.DBContext;
 import entity.Student;
 import java.util.ArrayList;
 import java.sql.*;
@@ -29,14 +28,13 @@ public class StudentDBContext extends DBContext<Student> {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, leid);
             ResultSet rs = stm.executeQuery();
-            while(rs.next())
-            {
+            while (rs.next()) {
                 Student s = new Student();
                 s.setId(rs.getInt("sid"));
                 s.setName(rs.getString("sname"));
                 students.add(s);
-             }
-            
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -45,7 +43,22 @@ public class StudentDBContext extends DBContext<Student> {
 
     @Override
     public ArrayList<Student> list() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Student> students = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Student";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Student student = new Student();
+                student.setId(rs.getInt("sid"));
+                student.setName(rs.getString("sname"));
+                students.add(student);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return students;
     }
 
     @Override
