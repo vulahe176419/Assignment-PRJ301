@@ -173,6 +173,8 @@ public class LessionDBContext extends DBContext<Lession> {
         return lessions;
     }
 
+
+    
     @Override
     public ArrayList<Lession> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
