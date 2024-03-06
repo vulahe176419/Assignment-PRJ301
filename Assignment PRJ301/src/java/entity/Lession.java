@@ -14,6 +14,7 @@ public class Lession {
     private int id;
     private Room room;
     private Lecturer lecturer;
+    private Student student;
     private TimeSlot slot;
     private Date date;
     private boolean attended;
@@ -84,6 +85,14 @@ public class Lession {
 
     public void setAtts(ArrayList<Attendence> atts) {
         this.atts = atts;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
     
 }

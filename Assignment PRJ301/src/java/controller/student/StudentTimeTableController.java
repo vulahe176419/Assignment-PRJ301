@@ -3,9 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.lecturer;
+package controller.student;
 
-import controller.authentication.BaseRequiredAuthenticationController;
 import controller.authentication.authorization.BaseRBACController;
 import dal.LessionDBContext;
 import dal.TimeSlotDBContext;
@@ -27,7 +26,7 @@ import util.DateTimeHelper;
  *
  * @author leanh
  */
-public class TimeTableController extends BaseRBACController {
+public class StudentTimeTableController extends BaseRBACController {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account,ArrayList<Role> roles) throws ServletException, IOException {
@@ -35,10 +34,9 @@ public class TimeTableController extends BaseRBACController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account,ArrayList<Role> roles) throws ServletException, IOException {
-        int lid = Integer.parseInt(req.getParameter("id"));
+        int sid = Integer.parseInt(req.getParameter("id"));
         TimeSlotDBContext timeDB = new TimeSlotDBContext();
         ArrayList<TimeSlot> slots = timeDB.list();
-        
         
         String raw_from = req.getParameter("from");
         String raw_to = req.getParameter("to");
@@ -65,14 +63,14 @@ public class TimeTableController extends BaseRBACController {
         }
         
         LessionDBContext lessDB = new LessionDBContext();
-        ArrayList<Lession> lessions = lessDB.getLessionByLecturerId(lid, from, to);
+        ArrayList<Lession> lessions = lessDB.getLessionByStudentId(sid, from, to);
         
         req.setAttribute("dates", DateTimeHelper.toList(from, to));
         req.setAttribute("from", from);
         req.setAttribute("to", to);
         req.setAttribute("slots", slots);
         req.setAttribute("lessions", lessions);
-        req.getRequestDispatcher("../view/lecturer/timetable.jsp").forward(req, resp);
+        req.getRequestDispatcher("../view/student/studenttimetable.jsp").forward(req, resp);
     }
     
 }
