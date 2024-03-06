@@ -6,11 +6,13 @@
 package controller.lecturer;
 
 import controller.authentication.BaseRequiredAuthenticationController;
+import controller.authentication.authorization.BaseRBACController;
 import dal.LessionDBContext;
 import dal.StudentDBContext;
 import entity.Account;
 import entity.Attendence;
 import entity.Lession;
+import entity.Role;
 import entity.Student;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,10 +26,10 @@ import java.util.ArrayList;
  *
  * @author leanh
  */
-public class AttendanceTakingController extends BaseRequiredAuthenticationController {
+public class AttendanceTakingController extends BaseRBACController {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account,ArrayList<Role> roles) throws ServletException, IOException {
         int leid = Integer.parseInt(req.getParameter("id"));
         StudentDBContext db = new StudentDBContext();
         ArrayList<Student> students = db.getStudentsByLessionId(leid);
@@ -48,7 +50,7 @@ public class AttendanceTakingController extends BaseRequiredAuthenticationContro
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account,ArrayList<Role> roles) throws ServletException, IOException {
         int leid = Integer.parseInt(req.getParameter("id"));
         LessionDBContext lesDB = new LessionDBContext();
         ArrayList<Attendence> atts = lesDB.getAttendencesByLession(leid);
@@ -56,7 +58,4 @@ public class AttendanceTakingController extends BaseRequiredAuthenticationContro
         req.getRequestDispatcher("../view/lecturer/att.jsp").forward(req, resp);
         
     }
-   
-    
-
 }

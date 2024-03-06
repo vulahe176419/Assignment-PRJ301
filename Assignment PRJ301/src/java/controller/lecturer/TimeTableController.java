@@ -6,10 +6,12 @@
 package controller.lecturer;
 
 import controller.authentication.BaseRequiredAuthenticationController;
+import controller.authentication.authorization.BaseRBACController;
 import dal.LessionDBContext;
 import dal.TimeSlotDBContext;
 import entity.Account;
 import entity.Lession;
+import entity.Role;
 import entity.TimeSlot;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,14 +27,14 @@ import util.DateTimeHelper;
  *
  * @author leanh
  */
-public class TimeTableController extends BaseRequiredAuthenticationController {
+public class TimeTableController extends BaseRBACController {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account,ArrayList<Role> roles) throws ServletException, IOException {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account,ArrayList<Role> roles) throws ServletException, IOException {
         int lid = Integer.parseInt(req.getParameter("id"));
         TimeSlotDBContext timeDB = new TimeSlotDBContext();
         ArrayList<TimeSlot> slots = timeDB.list();
@@ -74,4 +76,3 @@ public class TimeTableController extends BaseRequiredAuthenticationController {
     }
     
 }
-
