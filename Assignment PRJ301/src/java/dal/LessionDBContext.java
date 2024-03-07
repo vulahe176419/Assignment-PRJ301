@@ -51,7 +51,7 @@ public class LessionDBContext extends DBContext<Lession> {
                 stm_insert_att.setBoolean(4, att.isPresent());
                 stm_insert_att.executeUpdate();
             }
-            
+
             String sql_update_less = "UPDATE Lession SET isAttended = 1 WHERE leid = ?";
             PreparedStatement stm_update_less = connection.prepareStatement(sql_update_less);
             stm_update_less.setInt(1, leid);
@@ -173,34 +173,34 @@ public class LessionDBContext extends DBContext<Lession> {
         return lessions;
     }
 
-    public ArrayList<Lession> getLessionByStudentId(int sid, Date from, Date to) {
+    public ArrayList<Lession> getLessionByStudentId(int sid) {
         ArrayList<Lession> lessions = new ArrayList<>();
         try {
+            String sql = "SELECT le.leid, le.date, le.isAttended, "
+                    + "g.gid, g.gname, su.subid, su.suname, "
+                    + "t.tid, t.tname, "
+                    + "r.rid, r.rname "
+                    + "FROM Lession le "
+                    + "INNER JOIN StudentGroup g ON le.gid = g.gid "
+                    + "INNER JOIN TimeSlot t ON t.tid = le.tid "
+                    + "INNER JOIN Room r ON r.rid = le.rid "
+                    + "INNER JOIN Enrollment e ON e.gid = g.gid "
+                    + "INNER JOIN Student s ON s.sid = e.sid "
+                    + "INNER JOIN Subject su ON su.subid = g.subid "
+                    + "WHERE s.sid = ?";
 
-            String sql = "SELECT \n"
-                    + "le.leid,le.date,le.isAttended,\n"
-                    + "g.gid,g.gname,su.subid,su.suname,\n"
-                    + "t.tid,t.tname,\n"
-                    + "r.rid,r.rname,\n"
-                    + "s.sid,s.sname\n"
-                    + "FROM Lession le INNER JOIN StudentGroup g ON le.gid = g.gid\n"
-                    + "						INNER JOIN TimeSlot t ON t.tid = le.tid\n"
-                    + "						INNER JOIN Room r ON r.rid = le.rid\n"
-                    + "						INNER JOIN Student l ON le.sid = s.sid\n"
-                    + "						INNER JOIN [Subject] su ON su.subid = g.subid\n"
-                    + "WHERE s.sid=? AND le.[date] >= ? AND le.[date] <=?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, sid);
-            stm.setDate(2, from);
-            stm.setDate(3, to);
+
             ResultSet rs = stm.executeQuery();
+
             while (rs.next()) {
                 Lession le = new Lession();
                 StudentGroup g = new StudentGroup();
                 Subject sub = new Subject();
-                Student s = new Student();
-                Room r = new Room();
                 TimeSlot slot = new TimeSlot();
+                Room r = new Room();
+
                 le.setId(rs.getInt("leid"));
                 le.setDate(rs.getDate("date"));
                 le.setAttended(rs.getBoolean("isAttended"));
@@ -220,19 +220,14 @@ public class LessionDBContext extends DBContext<Lession> {
                 r.setName(rs.getString("rname"));
                 le.setRoom(r);
 
-                s.setId(sid);
-                s.setName(rs.getString("sname"));
-                le.setStudent(s);
-
                 lessions.add(le);
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(LessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lessions;
     }
-    
+
     @Override
     public ArrayList<Lession> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
