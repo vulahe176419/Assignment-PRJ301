@@ -8,41 +8,47 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Student Timetable</title>
-</head>
-<body>
-    <h2>Student Timetable</h2>
-    <table border="1">
-        <thead>
+    <head>
+        <meta charset="UTF-8">
+        <title>Student Timetable</title>
+    </head>
+    <body>
+        <h2>Student Timetable</h2>
+        <form action="studenttimetable" method="GET">
+            <input type="hidden" name="id" value="${param.id}"/>
+            Period: <input type="date" value="${requestScope.from}" name="from"/> - <input value="${requestScope.to}" type="date" name="to"/> 
+            <input type="submit" value="Show"/>
+        </form>
+        <table border="1">
             <tr>
-                <th>Date</th>
-                <th>Subject</th>
-                <th>Time</th>
-                <th>Room</th>
-                <th>Attendance</th>
+                <th>Time Slot</th>
+                    <c:forEach items="${requestScope.dates}" var="date">
+                    <th>${date}</th>
+                    </c:forEach>
             </tr>
-        </thead>
-        <tbody>
-            <c:forEach items="${lessions}" var="lession">
+            <c:forEach items="${requestScope.slots}" var="slot">
                 <tr>
-                    <td>${lession.date}</td>
-                    <td>${lession.group.subject.name}</td>
-                    <td>${lession.slot.name}</td>
-                    <td>${lession.room.name}</td>
-                    <td>
-                        <c:if test="${lession.isAttended}">
-                            Attended
-                        </c:if>
-                        <c:if test="${!lession.isAttended}">
-                            Absent
-                        </c:if>
-                    </td>
+                    <td>${slot.name}</td>
+                    <c:forEach items="${requestScope.dates}" var="date">
+                        <td>
+                            <c:forEach items="${requestScope.lessions}" var="les">
+                                <c:if test="${date eq les.date and les.slot.id eq slot.id}">
+                                    ${les.group.name} - ${les.group.subject.name}
+                                    <div>
+                                        <c:if test="${les.attended}">
+                                            Attended
+                                        </c:if>
+                                        <c:if test="${!les.attended}">
+                                            Absent
+                                        </c:if>
+                                    </div>    
+                                </c:if>
+                            </c:forEach>
+                        </td>
+                    </c:forEach>
                 </tr>
             </c:forEach>
-        </tbody>
-    </table>
-</body>
+        </table>
+    </body>
 </html>
 
