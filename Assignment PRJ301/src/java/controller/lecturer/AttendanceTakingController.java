@@ -10,7 +10,7 @@ import controller.authentication.authorization.BaseRBACController;
 import dal.LessionDBContext;
 import dal.StudentDBContext;
 import entity.Account;
-import entity.Attendence;
+import entity.Attendance;
 import entity.Lession;
 import entity.Role;
 import entity.Student;
@@ -35,9 +35,9 @@ public class AttendanceTakingController extends BaseRBACController {
         ArrayList<Student> students = db.getStudentsByLessionId(leid);
         Lession lession = new Lession();
         lession.setId(leid);
-        ArrayList<Attendence> atts = new ArrayList<>();
+        ArrayList<Attendance> atts = new ArrayList<>();
         for (Student student : students) {
-            Attendence att = new Attendence();
+            Attendance att = new Attendance();
             att.setStudent(student);
             att.setLession(lession);
             att.setDescription(req.getParameter("description"+student.getId()));
@@ -53,7 +53,7 @@ public class AttendanceTakingController extends BaseRBACController {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account,ArrayList<Role> roles) throws ServletException, IOException {
         int leid = Integer.parseInt(req.getParameter("id"));
         LessionDBContext lesDB = new LessionDBContext();
-        ArrayList<Attendence> atts = lesDB.getAttendencesByLession(leid);
+        ArrayList<Attendance> atts = lesDB.getAttendancesByLession(leid);
         req.setAttribute("atts", atts);
         req.getRequestDispatcher("../view/lecturer/att.jsp").forward(req, resp);
         

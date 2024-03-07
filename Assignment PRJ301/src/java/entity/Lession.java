@@ -19,7 +19,7 @@ public class Lession {
     private Date date;
     private boolean attended;
     private StudentGroup group;
-    private ArrayList<Attendence> atts = new ArrayList<>();
+    private ArrayList<Attendance> atts = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -77,13 +77,11 @@ public class Lession {
         this.group = group;
     }
 
-  
-
-    public ArrayList<Attendence> getAtts() {
+    public ArrayList<Attendance> getAtts() {
         return atts;
     }
 
-    public void setAtts(ArrayList<Attendence> atts) {
+    public void setAtts(ArrayList<Attendance> atts) {
         this.atts = atts;
     }
 
@@ -95,4 +93,7 @@ public class Lession {
         this.student = student;
     }
     
+//    public void addAttendance(Attendance attendence) {
+//        this.atts.add(attendence);
+//    }
 }

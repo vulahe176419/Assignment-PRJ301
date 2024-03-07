@@ -4,13 +4,15 @@
     Author     : leanh
 --%>
 
+<%@ page import="entity.Attendence" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>Student Timetable</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
     </head>
     <body>
         <h2>Student Timetable</h2>
@@ -32,16 +34,20 @@
                     <c:forEach items="${requestScope.dates}" var="date">
                         <td>
                             <c:forEach items="${requestScope.lessions}" var="les">
-                                <c:if test="${date eq les.date and les.slot.id eq slot.id}">
+                                <c:if test="${les.slot.id eq slot.id and les.date eq date}">
                                     ${les.group.name} - ${les.group.subject.name}
-                                    <div>
-                                        <c:if test="${les.attended}">
-                                            Attended
-                                        </c:if>
-                                        <c:if test="${!les.attended}">
-                                            Absent
-                                        </c:if>
-                                    </div>    
+                                    <div class="attendance">
+                                        <c:forEach items="${les.atts}" var="attendance" varStatus="status">
+                                            <c:if test="${status.index eq 0}">
+                                                <c:if test="${attendance.isPresent()}">
+                                                    <span class="attended">Attended</span>
+                                                </c:if>
+                                                <c:if test="${!attendance.isPresent()}">
+                                                    <span class="absent">Absent</span>
+                                                </c:if>
+                                            </c:if>
+                                        </c:forEach>
+                                    </div>
                                 </c:if>
                             </c:forEach>
                         </td>
@@ -51,4 +57,5 @@
         </table>
     </body>
 </html>
+
 

@@ -4,38 +4,38 @@
  */
 package dal;
 
-import entity.Attendence;
+import entity.Attendance;
 import java.util.ArrayList;
 
 /**
  *
  * @author leanh
  */
-public class AttendanceDBContext extends DBContext<Attendence> {
+public class AttendanceDBContext extends DBContext<Attendance> {
     
 
     @Override
-    public ArrayList<Attendence> list() {
+    public ArrayList<Attendance> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void insert(Attendence entity) {
+    public void insert(Attendance entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void update(Attendence entity) {
+    public void update(Attendance entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void delete(Attendence entity) {
+    public void delete(Attendance entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Attendence get(int id) {
+    public Attendance get(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

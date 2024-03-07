@@ -34,44 +34,37 @@ public class StudentTimeTableController extends BaseRBACController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account,ArrayList<Role> roles) throws ServletException, IOException {
-        int sid = Integer.parseInt(req.getParameter("id"));
-        TimeSlotDBContext timeDB = new TimeSlotDBContext();
-        ArrayList<TimeSlot> slots = timeDB.list();
-        
-        
-        String raw_from = req.getParameter("from");
-        String raw_to = req.getParameter("to");
-        Date from = null;
-        Date to = null;
-        java.util.Date today = new java.util.Date();
-        if(raw_from ==null)
-        {
-           from = DateTimeHelper.convertUtilToSql(DateTimeHelper.getBeginningOfWeek(today));
-        }
-        else
-        {
-           from = Date.valueOf(raw_from);
-        }
-        
-        if(raw_to == null)
-        {
-           java.util.Date beginWeek = DateTimeHelper.getBeginningOfWeek(today);
-           to= DateTimeHelper.convertUtilToSql(DateTimeHelper.addDaysToDate(beginWeek, 6));
-        }
-        else
-        {
-            to = Date.valueOf(raw_to);
-        }
-        
-        LessionDBContext lessDB = new LessionDBContext();
-        ArrayList<Lession> lessions = lessDB.getLessionByLecturerId(sid, from, to);
-        
-        req.setAttribute("dates", DateTimeHelper.toList(from, to));
-        req.setAttribute("from", from);
-        req.setAttribute("to", to);
-        req.setAttribute("slots", slots);
-        req.setAttribute("lessions", lessions);
-        req.getRequestDispatcher("../view/student/studenttimetable.jsp").forward(req, resp);
+//        int sid = Integer.parseInt(req.getParameter("id"));
+//        TimeSlotDBContext timeDB = new TimeSlotDBContext();
+//        ArrayList<TimeSlot> slots = timeDB.list();
+//        
+//        String raw_from = req.getParameter("from");
+//        String raw_to = req.getParameter("to");
+//        Date from = null;
+//        Date to = null;
+//        java.util.Date today = new java.util.Date();
+//        if(raw_from ==null) {
+//           from = DateTimeHelper.convertUtilToSql(DateTimeHelper.getBeginningOfWeek(today));
+//        } else {
+//           from = Date.valueOf(raw_from);
+//        }
+//        
+//        if(raw_to == null) {
+//            java.util.Date beginWeek = DateTimeHelper.getBeginningOfWeek(today);
+//            to= DateTimeHelper.convertUtilToSql(DateTimeHelper.addDaysToDate(beginWeek, 6));
+//        } else {
+//            to = Date.valueOf(raw_to);
+//        }
+//        
+//        LessionDBContext lessDB = new LessionDBContext();
+//        ArrayList<Lession> lessions = lessDB.getLessionByStudentId(sid, from, to);
+//        
+//        req.setAttribute("dates", DateTimeHelper.toList(from, to));
+//        req.setAttribute("from", from);
+//        req.setAttribute("to", to);
+//        req.setAttribute("slots", slots);
+//        req.setAttribute("lessions", lessions);
+//        req.getRequestDispatcher("../view/student/studenttimetable.jsp").forward(req, resp);
     }
     
 }
