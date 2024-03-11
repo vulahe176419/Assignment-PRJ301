@@ -7,11 +7,13 @@ package controller.student;
 
 import controller.authentication.authorization.BaseRBACController;
 import dal.LessionDBContext;
+import dal.StudentDBContext;
 import dal.TimeSlotDBContext;
 import entity.Account;
 import entity.Attendance;
 import entity.Lession;
 import entity.Role;
+import entity.Student;
 import entity.TimeSlot;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -31,15 +33,12 @@ public class StudentTimeTableController extends BaseRBACController {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account,ArrayList<Role> roles) throws ServletException, IOException {
+        
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account,ArrayList<Role> roles) throws ServletException, IOException {
-        int leid = Integer.parseInt(req.getParameter("id"));
-        LessionDBContext lesDB = new LessionDBContext();
-        ArrayList<Attendance> atts = lesDB.getAttendancesByLession(leid);
-        req.setAttribute("atts", atts);
-        req.getRequestDispatcher("../view/student/studenttimetable.jsp").forward(req, resp);
+        
     }
     
 }
