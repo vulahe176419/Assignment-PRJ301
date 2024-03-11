@@ -93,7 +93,4 @@ public class Lession {
         this.student = student;
     }
     
-//    public void addAttendance(Attendance attendence) {
-//        this.atts.add(attendence);
-//    }
 }
