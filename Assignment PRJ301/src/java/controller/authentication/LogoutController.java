@@ -37,8 +37,7 @@ public class LogoutController extends HttpServlet {
             
             response.addCookie(c_username);
             response.addCookie(c_password);
-            
-            response.getWriter().println("logged out!");
+            response.sendRedirect("login");
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
