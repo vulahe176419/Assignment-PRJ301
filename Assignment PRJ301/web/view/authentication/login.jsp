@@ -9,14 +9,21 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>FU Academic Portal</title>
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
     </head>
     <body>
-        <form action="login" method="POST">
-            Username: <input type="text" name="username"/> <br/>
-            Password: <input type="password" name="password"/> <br/>
-            <input type="checkbox" name="remember"/> Remember me. <br/>
-            <input type="submit" value="Login"/>
-        </form>
+        <div class="login-container">
+            <h1>FU Academic Portal</h1>
+            <form action="login" method="POST">
+                <input type="text" name="username" placeholder="Username"/><br/>
+                <input type="password" name="password" placeholder="Password"/><br/>
+                <input type="checkbox" id="remember" name="remember"/>
+                <label for="remember">Remember me</label><br/>
+                <div class="login-button-container">
+                    <input type="submit" value="Login"/>
+                </div>
+            </form>
+        </div>
     </body>
 </html>

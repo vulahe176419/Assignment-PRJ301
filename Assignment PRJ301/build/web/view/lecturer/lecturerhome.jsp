@@ -1,5 +1,5 @@
 <%-- 
-    Document   : home_lecturer
+    Document   : lecturerhome
     Created on : 6 Mar 2024, 18:26:11
     Author     : leanh
 --%>
@@ -9,10 +9,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Home Page</title>
+        <title>FU Academic Portal</title>
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
     </head>
     <body>
-        <a href="timetable?id=1">Weekly timetable (Thời khóa biểu từng tuần)</a><br>
-        <a href="../logout">Logout</a>
+        <div>
+            <a href="timetable?id=1">Weekly timetable (Thời khóa biểu từng tuần)</a>
+            <a href="../logout">Logout</a>
+        </div>
     </body>
 </html>

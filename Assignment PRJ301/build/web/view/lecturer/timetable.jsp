@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Lecturer Timetable</title>
     </head>
     <body>
         <h2>Lecturer Timetable</h2>
@@ -21,7 +21,7 @@
         </form>
         <table border="1px">
             <tr>
-                <td> </td>
+                <td>Time Slot</td>
                 <c:forEach items="${requestScope.dates}" var="d">
                     <td>${d}</td>
                 </c:forEach>
