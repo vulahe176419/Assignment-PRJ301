@@ -17,7 +17,7 @@ public class DateTimeHelper {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         // Set the first day of the week (Monday in this case)
-        calendar.setFirstDayOfWeek(Calendar.SUNDAY);
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
         // Set the calendar to the beginning of the week
         calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
         // Reset hour, minutes, seconds and millis
@@ -39,8 +39,7 @@ public class DateTimeHelper {
     {
         ArrayList<java.sql.Date> list = new ArrayList<>();
         Date temp = from;
-        while(!temp.after(to))
-        {
+        while(!temp.after(to)){
             list.add(convertUtilToSql(temp));
             temp = addDaysToDate(temp, 1);
         }

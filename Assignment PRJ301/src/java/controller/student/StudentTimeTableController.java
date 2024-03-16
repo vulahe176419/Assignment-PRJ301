@@ -38,7 +38,7 @@ public class StudentTimeTableController extends BaseRBACController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account,ArrayList<Role> roles) throws ServletException, IOException {
-        int sid = Integer.parseInt(req.getParameter("id"));
+        int gid = Integer.parseInt(req.getParameter("id"));
         TimeSlotDBContext timeDB = new TimeSlotDBContext();
         ArrayList<TimeSlot> slots = timeDB.list();
         
@@ -67,7 +67,7 @@ public class StudentTimeTableController extends BaseRBACController {
         }
         
         LessionDBContext lessDB = new LessionDBContext();
-        ArrayList<Lession> lessions = lessDB.getLessionByLecturerId(sid, from, to);
+        ArrayList<Lession> lessions = lessDB.getLessionByGroupId(gid, from, to);
         
         req.setAttribute("dates", DateTimeHelper.toList(from, to));
         req.setAttribute("from", from);

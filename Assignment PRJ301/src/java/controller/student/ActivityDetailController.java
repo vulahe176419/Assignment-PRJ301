@@ -5,12 +5,19 @@
 
 package controller.student;
 
+import dal.LessionDBContext;
+import dal.TimeSlotDBContext;
+import entity.Lession;
+import entity.TimeSlot;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.Date;
+import java.util.ArrayList;
+import util.DateTimeHelper;
 
 /**
  *
@@ -53,7 +60,43 @@ public class ActivityDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        int gid = Integer.parseInt(request.getParameter("id"));
+        TimeSlotDBContext timeDB = new TimeSlotDBContext();
+        ArrayList<TimeSlot> slots = timeDB.list();
+        
+        String raw_from = request.getParameter("from");
+        String raw_to = request.getParameter("to");
+        Date from = null;
+        Date to = null;
+        java.util.Date today = new java.util.Date();
+        if(raw_from ==null)
+        {
+           from = DateTimeHelper.convertUtilToSql(DateTimeHelper.getBeginningOfWeek(today));
+        }
+        else
+        {
+           from = Date.valueOf(raw_from);
+        }
+        
+        if(raw_to == null)
+        {
+           java.util.Date beginWeek = DateTimeHelper.getBeginningOfWeek(today);
+           to= DateTimeHelper.convertUtilToSql(DateTimeHelper.addDaysToDate(beginWeek, 6));
+        }
+        else
+        {
+            to = Date.valueOf(raw_to);
+        }
+        
+        LessionDBContext lessDB = new LessionDBContext();
+        ArrayList<Lession> lessions = lessDB.getLessionByGroupId(gid, from, to);
+        
+        request.setAttribute("dates", DateTimeHelper.toList(from, to));
+        request.setAttribute("from", from);
+        request.setAttribute("to", to);
+        request.setAttribute("slots", slots);
+        request.setAttribute("lessions", lessions);
+        request.getRequestDispatcher("../view/student/activitydetail.jsp").forward(request, response);
     } 
 
     /** 

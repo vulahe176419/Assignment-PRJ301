@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -38,7 +39,7 @@
                         <td>
                             <input name="description${a.student.id}" type="text" value="${a.description}"/>
                         </td>
-                        <td>${a.time}</td>
+                        <td><fmt:formatDate value="${a.time}" pattern="HH:mm - dd/MM/yyyy"/></td>
                     </tr>   
                 </c:forEach>
             </table>

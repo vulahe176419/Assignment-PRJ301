@@ -170,7 +170,60 @@ public class LessionDBContext extends DBContext<Lession> {
         return lessions;
     }
 
-    
+    public ArrayList<Lession> getLessionByGroupId(int gid, Date from, Date to) {
+        ArrayList<Lession> lessions = new ArrayList<>();
+        try {
+
+            String sql = "SELECT \n"
+                    + "le.leid,le.date,le.isAttended,\n"
+                    + "g.gid,g.gname,su.subid,su.suname,\n"
+                    + "t.tid,t.tname,\n"
+                    + "r.rid,r.rname,\n"
+                    + "l.lid,l.lname\n"
+                    + "FROM Lession le INNER JOIN StudentGroup g ON le.gid = g.gid\n"
+                    + "						INNER JOIN TimeSlot t ON t.tid = le.tid\n"
+                    + "						INNER JOIN Room r ON r.rid = le.rid\n"
+                    + "						INNER JOIN Lecturer l ON le.lid = l.lid\n"
+                    + "						INNER JOIN [Subject] su ON su.subid = g.subid\n"
+                    + "WHERE g.gid=? AND le.[date] >= ? AND le.[date] <=?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, gid);
+            stm.setDate(2, from);
+            stm.setDate(3, to);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Lession le = new Lession();
+                StudentGroup g = new StudentGroup();
+                Subject sub = new Subject();
+                TimeSlot slot = new TimeSlot();
+                Room r = new Room();
+
+                le.setId(rs.getInt("leid"));
+                le.setDate(rs.getDate("date"));
+
+                g.setId(rs.getInt("gid"));
+                g.setName(rs.getString("gname"));
+                sub.setId(rs.getInt("subid"));
+                sub.setName(rs.getString("suname"));
+                g.setSubject(sub);
+                le.setGroup(g);
+
+                slot.setId(rs.getInt("tid"));
+                slot.setName(rs.getString("tname"));
+                le.setSlot(slot);
+
+                r.setId(rs.getInt("rid"));
+                r.setName(rs.getString("rname"));
+                le.setRoom(r);
+
+                lessions.add(le);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(LessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lessions;
+    }
 
     @Override
     public ArrayList<Lession> list() {
