@@ -14,8 +14,8 @@
     </head>
     <body>
         <div>
-            <a href="timetable?id=1">Weekly timetable (Thời khóa biểu từng tuần)</a>
-            <a href="../logout">Logout</a>
-        </div>
+        <a href="timetable?id=1">Weekly timetable (Thời khóa biểu từng tuần)</a>
+        <a href="../logout">Logout</a>
+    </div>
     </body>
 </html>

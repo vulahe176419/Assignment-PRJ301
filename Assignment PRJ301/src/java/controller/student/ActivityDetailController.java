@@ -5,9 +5,12 @@
 
 package controller.student;
 
+import controller.authentication.authorization.BaseRBACController;
 import dal.LessionDBContext;
 import dal.TimeSlotDBContext;
+import entity.Account;
 import entity.Lession;
+import entity.Role;
 import entity.TimeSlot;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,49 +26,16 @@ import util.DateTimeHelper;
  *
  * @author leanh
  */
-public class ActivityDetailController extends HttpServlet {
+public class ActivityDetailController extends BaseRBACController {
    
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ActivityDetailController</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ActivityDetailController at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    } 
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        int leid = Integer.parseInt(request.getParameter("id"));
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account, ArrayList<Role> roles) throws ServletException, IOException {
+        int leid = Integer.parseInt(req.getParameter("id"));
         TimeSlotDBContext timeDB = new TimeSlotDBContext();
         ArrayList<TimeSlot> slots = timeDB.list();
         
-        String raw_from = request.getParameter("from");
-        String raw_to = request.getParameter("to");
+        String raw_from = req.getParameter("from");
+        String raw_to = req.getParameter("to");
         Date from = null;
         Date to = null;
         java.util.Date today = new java.util.Date();
@@ -91,34 +61,17 @@ public class ActivityDetailController extends HttpServlet {
         LessionDBContext lessDB = new LessionDBContext();
         ArrayList<Lession> lessions = lessDB.getLessionByLessionId(leid, from, to);
         
-        request.setAttribute("dates", DateTimeHelper.toList(from, to));
-        request.setAttribute("from", from);
-        request.setAttribute("to", to);
-        request.setAttribute("slots", slots);
-        request.setAttribute("lessions", lessions);
-        request.getRequestDispatcher("../view/student/activitydetail.jsp").forward(request, response);
+        req.setAttribute("dates", DateTimeHelper.toList(from, to));
+        req.setAttribute("from", from);
+        req.setAttribute("to", to);
+        req.setAttribute("slots", slots);
+        req.setAttribute("lessions", lessions);
+        req.getRequestDispatcher("../view/student/activitydetail.jsp").forward(req, resp);
     } 
 
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account, ArrayList<Role> roles) throws ServletException, IOException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

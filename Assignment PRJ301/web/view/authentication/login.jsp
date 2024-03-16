@@ -12,7 +12,7 @@
         <title>FU Academic Portal</title>
         <link rel="stylesheet" type="text/css" href="css/styles.css">
     </head>
-    <body>
+    <body class="login-bigcon">
         <div class="login-container">
             <h1>FU Academic Portal</h1>
             <form action="login" method="POST">

@@ -7,7 +7,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Author     : leanh
 */
 
-body {
+login-bigcon {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     margin: 0;
@@ -68,5 +68,6 @@ body {
     align-items: center;
     margin-top: 20px;
 }
+
 
 
