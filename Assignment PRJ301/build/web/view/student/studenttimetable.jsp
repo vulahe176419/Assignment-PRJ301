@@ -37,7 +37,7 @@
                     <td>
                         <c:forEach items="${requestScope.lessions}" var="les">
                             <c:if test="${d eq les.date and les.slot.id eq slot.id}">
-                                <a href="activitydetail">${les.group.subject.name}</a>
+                                <a href="activitydetail?id=${les.id}">${les.group.subject.name}</a>
                                 at ${les.room.name}<br>
                                <c:if test="${les.attended}">
                                    Attended

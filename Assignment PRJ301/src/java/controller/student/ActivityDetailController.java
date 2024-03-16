@@ -60,7 +60,7 @@ public class ActivityDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int gid = Integer.parseInt(request.getParameter("id"));
+        int leid = Integer.parseInt(request.getParameter("id"));
         TimeSlotDBContext timeDB = new TimeSlotDBContext();
         ArrayList<TimeSlot> slots = timeDB.list();
         
@@ -89,7 +89,7 @@ public class ActivityDetailController extends HttpServlet {
         }
         
         LessionDBContext lessDB = new LessionDBContext();
-        ArrayList<Lession> lessions = lessDB.getLessionByGroupId(gid, from, to);
+        ArrayList<Lession> lessions = lessDB.getLessionByLessionId(leid, from, to);
         
         request.setAttribute("dates", DateTimeHelper.toList(from, to));
         request.setAttribute("from", from);
