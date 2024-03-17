@@ -46,6 +46,28 @@ public class RoleDBContext extends DBContext<Role> {
         }
         return roles;
     }
+    
+    public ArrayList<Role> getRolesByUsername(String username) {
+        ArrayList<Role> roles = new ArrayList<>();
+        try {
+            String sql = "SELECT r.* FROM Role r "
+                    + "INNER JOIN Role_Account ra ON r.roleid = ra.roleid "
+                    + "WHERE ra.username = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, username);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Role role = new Role();
+                role.setId(rs.getInt("id"));
+                role.setName(rs.getString("name"));
+                roles.add(role);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return roles;
+    }
 
     @Override
     public ArrayList<Role> list() {
