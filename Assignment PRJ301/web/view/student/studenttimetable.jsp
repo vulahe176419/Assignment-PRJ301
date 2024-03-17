@@ -15,7 +15,7 @@
         
     </head>
     <body>
-        <h2>Student Timetable</h2>
+        <h1>Student Timetable</h1>
         <form action="studenttimetable" method="GET">
             <input type="hidden" name="id" value="${param.id}"/>
             From <input type="date" value="${requestScope.from}" name="from"/> to <input value="${requestScope.to}" type="date" name="to"/> 

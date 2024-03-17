@@ -1,6 +1,6 @@
 <%-- 
-    Document   : lecturerhome
-    Created on : 6 Mar 2024, 18:26:11
+    Document   : studenthome
+    Created on : 17 Mar 2024, 16:01:19
     Author     : leanh
 --%>
 
@@ -15,9 +15,10 @@
     </head>
     <body class="lechome-body">
         <div class="lechome-con">
-            <c:forEach items="${requestScope.lecturers}" var="lec">
-                <a class="lec-a" href="timetable?id=${lec.id}">Weekly timetable (Thời khóa biểu từng tuần)</a><br>
+            <c:forEach items="${requestScope.students}" var="s">
+                <a class="lec-a" href="timetable?id=${s.id}">Weekly timetable (Thời khóa biểu từng tuần)</a><br>
             </c:forEach>
+            <a class="lec-a" href="../curriculum">Curiculum (Khung chương trình)</a><br>
             <a class="lec-a" href="../logout">Logout</a>
         </div>
     </body>

@@ -229,7 +229,7 @@ public class LessionDBContext extends DBContext<Lession> {
         return lessions;
     }
 
-    public ArrayList<Lession> getLessionByLessionId(int leid, Date from, Date to) {
+    public ArrayList<Lession> getLessionById(int leid, Date from, Date to) {
         ArrayList<Lession> lessions = new ArrayList<>();
         try {
 
@@ -261,6 +261,7 @@ public class LessionDBContext extends DBContext<Lession> {
                 l.setId(rs.getInt("lid"));
                 l.setName(rs.getString("lname"));
                 le.setLecturer(l);
+                le.setId(rs.getInt("leid"));
                 le.setDate(rs.getDate("date"));
 
                 g.setId(rs.getInt("gid"));

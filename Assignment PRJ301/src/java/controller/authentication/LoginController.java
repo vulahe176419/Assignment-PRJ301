@@ -8,7 +8,6 @@ package controller.authentication;
 import dal.AccountDBContext;
 import entity.Account;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
@@ -67,9 +66,8 @@ public class LoginController extends HttpServlet {
             response.addCookie(c_username);
             response.addCookie(c_password);
             
-            
+            session.setAttribute("username", username);
             session.setAttribute("account", account);
-            
             response.getWriter().println("login successful! welcome " + account.getDisplayname());
             //response.sendRedirect("lecturer/lecturerhome");
         }

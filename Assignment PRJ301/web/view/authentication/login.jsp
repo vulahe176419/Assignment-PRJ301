@@ -9,12 +9,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>FU Academic Portal</title>
+        <title>University Academic Portal</title>
         <link rel="stylesheet" type="text/css" href="css/styles.css">
     </head>
     <body class="login-bigcon">
         <div class="login-container">
-            <h1>FU Academic Portal</h1>
+            <h1>University Academic Portal</h1>
             <form action="login" method="POST">
                 <input type="text" name="username" placeholder="Username"/><br/>
                 <input type="password" name="password" placeholder="Password"/><br/>

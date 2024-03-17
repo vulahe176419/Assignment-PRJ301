@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <session-config>
+        <session-timeout>30</session-timeout> <!-- Timeout value in minutes -->
+    </session-config>
     <servlet>
         <servlet-name>LoginController</servlet-name>
         <servlet-class>controller.authentication.LoginController</servlet-class>
@@ -7,14 +10,6 @@
     <servlet>
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>controller.authentication.LogoutController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ListController</servlet-name>
-        <servlet-class>controller.student.ListController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>InsertController</servlet-name>
-        <servlet-class>controller.student.InsertController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>TimeTableController</servlet-name>
@@ -36,6 +31,22 @@
         <servlet-name>ActivityDetailController</servlet-name>
         <servlet-class>controller.student.ActivityDetailController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StudentHomeController</servlet-name>
+        <servlet-class>controller.student.StudentHomeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AttendanceReportController</servlet-name>
+        <servlet-class>controller.student.AttendanceReportController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LecturerSlotDetailController</servlet-name>
+        <servlet-class>controller.lecturer.LecturerSlotDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SubjectDetailController</servlet-name>
+        <servlet-class>controller.student.SubjectDetailController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -43,14 +54,6 @@
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ListController</servlet-name>
-        <url-pattern>/student/list</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>InsertController</servlet-name>
-        <url-pattern>/student/insert</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TimeTableController</servlet-name>
@@ -71,5 +74,21 @@
     <servlet-mapping>
         <servlet-name>ActivityDetailController</servlet-name>
         <url-pattern>/student/activitydetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StudentHomeController</servlet-name>
+        <url-pattern>/student/studenthome</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AttendanceReportController</servlet-name>
+        <url-pattern>/student/attreport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LecturerSlotDetailController</servlet-name>
+        <url-pattern>/lecturer/slotdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubjectDetailController</servlet-name>
+        <url-pattern>/subjectdetail</url-pattern>
     </servlet-mapping>
 </web-app>

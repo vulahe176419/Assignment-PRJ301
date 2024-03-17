@@ -2,13 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/leanh/OneDrive/Documents/GitHub/Assignment-PRJ301/Assignment%20PRJ301/src/java/controller/student/StudentTimeTableController.java</file>
-            <file>file:/C:/Users/leanh/OneDrive/Documents/GitHub/Assignment-PRJ301/Assignment%20PRJ301/src/java/controller/authentication/LoginController.java</file>
-            <file>file:/C:/Users/leanh/OneDrive/Documents/GitHub/Assignment-PRJ301/Assignment%20PRJ301/web/view/student/studenttimetable.jsp</file>
-            <file>file:/C:/Users/leanh/OneDrive/Documents/GitHub/Assignment-PRJ301/Assignment%20PRJ301/src/java/dal/StudentDBContext.java</file>
-            <file>file:/C:/Users/leanh/OneDrive/Documents/GitHub/Assignment-PRJ301/Assignment%20PRJ301/web/view/student/activitydetail.jsp</file>
-            <file>file:/C:/Users/leanh/OneDrive/Documents/GitHub/Assignment-PRJ301/Assignment%20PRJ301/src/java/dal/LessionDBContext.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

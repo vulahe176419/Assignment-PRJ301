@@ -1,6 +1,6 @@
 <%-- 
-    Document   : activitydetail
-    Created on : 15 Mar 2024, 20:28:23
+    Document   : slotdetail
+    Created on : 17 Mar 2024, 16:57:44
     Author     : leanh
 --%>
 
@@ -11,10 +11,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Activity detail</title>
+        <title>Slot detail</title>
     </head>
     <body>
-        <h1>Activity detail</h1>
+        <h1>Slot detail</h1>
         <c:forEach items="${requestScope.slots}" var="slot">
             <c:forEach items="${requestScope.dates}" var="d">
             <td>
@@ -28,10 +28,10 @@
                         <p>Room: ${les.room.name}</p>
                         <p>Attendance: 
                             <c:if test="${les.attended}">
-                                Attended
+                                <a href="att?id=${les.id}">Edit</a>
                             </c:if>
                             <c:if test="${!les.attended}">
-                                Not yet
+                                <a href="att?id=${les.id}">Take</a>
                             </c:if>
                         </p>
                     </c:if>
