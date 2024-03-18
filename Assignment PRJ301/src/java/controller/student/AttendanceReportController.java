@@ -6,7 +6,9 @@
 package controller.student;
 
 import controller.authentication.authorization.BaseRBACController;
+import dal.AttendanceDBContext;
 import entity.Account;
+import entity.Attendance;
 import entity.Role;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,7 +26,12 @@ public class AttendanceReportController extends BaseRBACController {
    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account, ArrayList<Role> roles) throws ServletException, IOException {
-        req.getRequestDispatcher("../view/student/attreport.jsp").forward(req, resp);
+        int sid = Integer.parseInt(req.getParameter("id"));
+        AttendanceDBContext attDB = new AttendanceDBContext();
+        ArrayList<Attendance> atts = attDB.getAttendanceByStudentId(sid);
+        
+        req.setAttribute("atts", atts);
+        req.getRequestDispatcher("../student/attreport.jsp").forward(req, resp);
     }
 
     @Override

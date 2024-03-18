@@ -4,7 +4,11 @@
  */
 package dal;
 
+import entity.Attendance;
+import entity.Lecturer;
 import entity.Student;
+import entity.StudentGroup;
+import entity.Subject;
 import java.util.ArrayList;
 import java.sql.*;
 import java.util.logging.Level;
@@ -41,8 +45,9 @@ public class StudentDBContext extends DBContext<Student> {
         return students;
     }
 
-    public ArrayList<Student> getStudentIdByName(String sname) {
-        ArrayList<Student> students = new ArrayList<>();
+
+    public Student getStudentIdByName(String sname) {
+        Student students = null;
         try {
             String sql = "SELECT sid "
                     + "FROM Student"
@@ -50,10 +55,9 @@ public class StudentDBContext extends DBContext<Student> {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, sname);
             ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                Student s = new Student();
-                s.setId(rs.getInt("sid"));
-                students.add(s);
+            if (rs.next()) {
+                students = new Student();
+                students.setId(rs.getInt("sid"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);

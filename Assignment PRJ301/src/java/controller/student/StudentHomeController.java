@@ -24,30 +24,24 @@ import java.util.ArrayList;
  */
 public class StudentHomeController extends BaseRBACController {
 
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String sname = (String) session.getAttribute("username");
+        StudentDBContext stuDB = new StudentDBContext();
+        Student students = stuDB.getStudentIdByName(sname);
+        request.setAttribute("students", students);
+        request.getRequestDispatcher("../view/student/studenthome.jsp").forward(request, response);
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account, ArrayList<Role> roles) throws ServletException, IOException {
-        req.getRequestDispatcher("../view/student/studenthome.jsp").forward(req, resp);
+        processRequest(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account, ArrayList<Role> roles) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        if (session != null) {
-            Account loggedInAccount = (Account) session.getAttribute("account");
-            if (loggedInAccount != null) {
-                String sname = loggedInAccount.getUsername();
-                StudentDBContext stuDB = new StudentDBContext();
-                ArrayList<Student> students = stuDB.getStudentIdByName(sname);
-                req.setAttribute("students", students);
-                req.getRequestDispatcher("../view/student/studenthome.jsp").forward(req, resp);
-            } else {
-                // Handle case where account is not found in session
-                // This could mean user is not logged in
-            }
-        } else {
-            // Handle case where session is null
-            // This could mean user is not logged in
-        }
+        processRequest(req, resp);
     }
 
 }

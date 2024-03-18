@@ -14,22 +14,21 @@ import java.util.logging.Logger;
  *
  * @author leanh
  */
-public class LecturerDBContext extends DBContext<Lecturer>{
+public class LecturerDBContext extends DBContext<Lecturer> {
 
-    public ArrayList<Lecturer> getLecturerIdByUsername(String username) {
-        ArrayList<Lecturer> lectures = new ArrayList<>();
+    public Lecturer getLecturerIdByUsername(String username) {
+        Lecturer lectures = null;
         try {
-            String sql = "SELECT l.lid " +
-             "FROM Lecturer l " +
-             "JOIN Account a ON l.lname = a.username " +
-             "WHERE a.username = ?";
+            String sql = "SELECT l.lid "
+                    + "FROM Lecturer l "
+                    + "JOIN Account a ON l.lname = a.username "
+                    + "WHERE a.username = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, username);
             ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                Lecturer l = new Lecturer();
-                l.setId(rs.getInt("lid"));
-                lectures.add(l);
+            if (rs.next()) {
+                lectures = new Lecturer();
+                lectures.setId(rs.getInt("lid"));
             }
 
         } catch (SQLException ex) {
@@ -37,7 +36,7 @@ public class LecturerDBContext extends DBContext<Lecturer>{
         }
         return lectures;
     }
-    
+
     @Override
     public ArrayList<Lecturer> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -62,5 +61,5 @@ public class LecturerDBContext extends DBContext<Lecturer>{
     public Lecturer get(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }

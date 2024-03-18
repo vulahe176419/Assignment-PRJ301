@@ -5,6 +5,10 @@
 package dal;
 
 import entity.Attendance;
+import entity.Lecturer;
+import entity.Student;
+import entity.StudentGroup;
+import entity.Subject;
 import java.util.ArrayList;
 import java.sql.*;
 import java.util.logging.Level;
@@ -42,6 +46,47 @@ public class AttendanceDBContext extends DBContext<Attendance> {
 
         } catch (SQLException ex) {
             Logger.getLogger(TimeSlotDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return atts;
+    }
+
+    public ArrayList<Attendance> getAttendanceByStudentId(int sid) {
+        ArrayList<Attendance> atts = new ArrayList<>();
+        try {
+            String sql = """
+                         SELECT sub.suname
+                         \t   , g.gname,
+                         \t   l.lname
+                               ,s.sname
+                               ,description
+                               ,isPresent
+                           FROM Attendance A INNER JOIN Lession le ON le.leid= a.leid
+                         \t\t\t\t\tINNER JOIN StudentGroup g ON g.gid=le.gid
+                         \t\t\t\t\tINNER JOIN [Subject] sub ON sub.subid=g.subid
+                         \t\t\t\t\tINNER JOIN Student s ON s.sid=a.sid
+                         \t\t\t\t\tINNER JOIN Lecturer l ON l.lid=le.lid
+                           WHERE a.sid=?""";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, sid);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Student s = new Student();
+                StudentGroup g = new StudentGroup();
+                Lecturer l = new Lecturer();
+                Attendance a = new Attendance();
+                Subject sub = new Subject();
+
+                sub.setName(rs.getString("suname"));
+                l.setName(rs.getString("lname"));
+                a.setDescription(rs.getString("description"));
+                a.setPresent(rs.getBoolean("isPresent"));
+                s.setId(rs.getInt("sid"));
+                s.setName(rs.getString("sname"));
+                atts.add(a);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return atts;
     }
