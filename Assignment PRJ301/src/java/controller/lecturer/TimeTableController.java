@@ -7,9 +7,11 @@ package controller.lecturer;
 
 import controller.authentication.BaseRequiredAuthenticationController;
 import controller.authentication.authorization.BaseRBACController;
+import dal.AttendanceDBContext;
 import dal.LessionDBContext;
 import dal.TimeSlotDBContext;
 import entity.Account;
+import entity.Attendance;
 import entity.Lession;
 import entity.Role;
 import entity.TimeSlot;

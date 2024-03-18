@@ -145,7 +145,8 @@ public class LessionDBContext extends DBContext<Lession> {
 
                 le.setId(rs.getInt("leid"));
                 le.setDate(rs.getDate("date"));
-
+                le.setAttended(rs.getBoolean("isAttended"));
+                
                 g.setId(rs.getInt("gid"));
                 g.setName(rs.getString("gname"));
                 sub.setId(rs.getInt("subid"));
@@ -174,18 +175,21 @@ public class LessionDBContext extends DBContext<Lession> {
         ArrayList<Lession> lessions = new ArrayList<>();
         try {
 
-            String sql = "SELECT \n"
-                    + "le.leid,le.date,le.isAttended,\n"
-                    + "g.gid,g.gname,su.subid,su.suname,\n"
-                    + "t.tid,t.tname,\n"
-                    + "r.rid,r.rname,\n"
-                    + "l.lid,l.lname\n"
-                    + "FROM Lession le INNER JOIN StudentGroup g ON le.gid = g.gid\n"
-                    + "						INNER JOIN TimeSlot t ON t.tid = le.tid\n"
-                    + "						INNER JOIN Room r ON r.rid = le.rid\n"
-                    + "						INNER JOIN Lecturer l ON le.lid = l.lid\n"
-                    + "						INNER JOIN [Subject] su ON su.subid = g.subid\n"
-                    + "WHERE g.gid=? AND le.[date] >= ? AND le.[date] <=?";
+            String sql = """
+                         SELECT 
+                         \t\t\t\tle.leid,le.date,le.isAttended,
+                                             g.gid,g.gname,su.subid,su.suname,
+                                             t.tid,t.tname,
+                                             r.rid,r.rname,
+                                             l.lid,l.lname
+                         FROM Lession le
+                         INNER JOIN Enrollment e ON le.gid = e.gid
+                         INNER JOIN StudentGroup g ON le.gid = g.gid
+                                             \t\t\t\t\t\tINNER JOIN TimeSlot t ON t.tid = le.tid
+                                             \t\t\t\t\t\tINNER JOIN Room r ON r.rid = le.rid
+                                             \t\t\t\t\t\tINNER JOIN Lecturer l ON le.lid = l.lid
+                                             \t\t\t\t\t\tINNER JOIN [Subject] su ON su.subid = g.subid
+                         WHERE e.sid = (SELECT sid FROM Student WHERE sid=?) AND le.[date] >= ? AND le.[date] <=?""";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, gid);
             stm.setDate(2, from);

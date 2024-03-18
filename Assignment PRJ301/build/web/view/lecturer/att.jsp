@@ -14,6 +14,7 @@
         <title>University Academic Portal</title>
     </head>
     <body>
+        
         <form action="att" method="POST">
             <input type="hidden" name="id" value="${param.id}"/>
             <table border="1px">
@@ -27,7 +28,7 @@
                 <c:forEach items="${requestScope.atts}" var="a">
                     <tr>
                         <td>${a.student.id}</td>
-                        <td>${a.student.name}</td>
+                        <td>${studentDetails[a.student.name]}</td>
                         <td>
                             <input 
                                 ${!a.present?"checked=\"checked\"":""}
@@ -43,7 +44,8 @@
                     </tr>   
                 </c:forEach>
             </table>
-            <input type="submit" value="Save"/>
+            <input type="submit" value="Save"/><br>
+            <a href="timetable?id=1" class="backButton">Back</a>
         </form>
     </body>
 </html>

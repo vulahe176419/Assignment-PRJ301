@@ -31,16 +31,13 @@ public class StudentHomeController extends BaseRBACController {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account, ArrayList<Role> roles) throws ServletException, IOException {
-
-        HttpSession session = req.getSession(false);
+        HttpSession session = req.getSession();
         if (session != null) {
             Account loggedInAccount = (Account) session.getAttribute("account");
             if (loggedInAccount != null) {
-                String username = loggedInAccount.getUsername();
-
-                // Now you can use the username as needed
+                String sname = loggedInAccount.getUsername();
                 StudentDBContext stuDB = new StudentDBContext();
-                ArrayList<Student> students = stuDB.getStudentIdByUsername(username);
+                ArrayList<Student> students = stuDB.getStudentIdByName(sname);
                 req.setAttribute("students", students);
                 req.getRequestDispatcher("../view/student/studenthome.jsp").forward(req, resp);
             } else {

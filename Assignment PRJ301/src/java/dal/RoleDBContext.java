@@ -58,8 +58,8 @@ public class RoleDBContext extends DBContext<Role> {
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Role role = new Role();
-                role.setId(rs.getInt("id"));
-                role.setName(rs.getString("name"));
+                role.setId(rs.getInt("roleid"));
+                role.setName(rs.getString("rolename"));
                 roles.add(role);
             }
         } catch (SQLException ex) {

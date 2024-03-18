@@ -60,7 +60,6 @@ public class LoginController extends HttpServlet {
             //implement remember me!
             Cookie c_username = new Cookie("username", username);
             c_username.setMaxAge(3600 * 24 * 7);
-
             Cookie c_password = new Cookie("password", password);
             c_password.setMaxAge(3600 * 24 * 7);
 
@@ -84,15 +83,12 @@ public class LoginController extends HttpServlet {
                 }
             }
             if (isStudent) {
-                response.sendRedirect("student/studenthome.jsp");
+                response.sendRedirect("student/studenthome");
             } else if (isLecturer) {
-                response.sendRedirect("lecturer/lecturerhome.jsp");
+                response.sendRedirect("lecturer/lecturerhome");
             } else {
-                System.out.println("Logged-in user roles: " + roles);
-                response.getWriter().println("Unknown role! Cannot redirect.");
+                response.getWriter().println("login failed!");
             }
-
-            response.getWriter().println("login successful! welcome " + account.getDisplayname());
         } else {
             response.getWriter().println("login failed!");
         }

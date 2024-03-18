@@ -27,12 +27,23 @@
                         <p>Course: ${subjectDetails[les.group.subject.name]}</p>
                         <p>Room: ${les.room.name}</p>
                         <p>Attendance: 
-                            <c:if test="${les.attended}">
-                                <a href="att?id=${les.id}">Edit</a>
-                            </c:if>
-                            <c:if test="${!les.attended}">
-                                <a href="att?id=${les.id}">Take</a>
-                            </c:if>
+                            <c:set var="now" value="<%= new java.util.Date() %>"/>
+                            <c:set var="dateFormat" value="<%= new java.text.SimpleDateFormat(\"yyyy-MM-dd\") %>"/>
+                            <c:set var="today" value="${dateFormat.format(now)}" />
+                            <c:choose>
+                                <c:when test="${today lt les.date}">
+                                    <span class="lec-status">Not yet</span>
+                                </c:when>
+                                <c:when test="${today gt les.date}">
+                                    <span class="lec-status-at">Complete</span>
+                                </c:when>  
+                                <c:when test="${(today eq les.date) and (les.attended)}">
+                                    <a href="att?id=${les.id}" class="lec-link">Edit</a>
+                                </c:when>
+                                <c:when test="${(today eq les.date) and (!les.attended)}">
+                                    <a href="att?id=${les.id}" class="lec-link">Take</a>
+                                </c:when>     
+                            </c:choose>
                         </p>
                     </c:if>
                 </c:forEach>
@@ -40,5 +51,6 @@
         </c:forEach>
     </tr>  
 </c:forEach>
+<a href="timetable?id=1" class="back-button">Back</a>
 </body>
 </html>

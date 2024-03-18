@@ -36,4 +36,40 @@ public class DetailsName {
         lecturerDetails.put("tiennv", "Nguyen Van Tien");
         return lecturerDetails;
     }
+    
+    public static Map<String, String> getStudentDetails() {
+        Map<String, String> StudentDetails = new HashMap<>();
+        StudentDetails.put("annv", "Nguyen Van An");
+        StudentDetails.put("anhld", "Le Duc Anh");
+        StudentDetails.put("anhnp", "Nguyen Phuong Anh");
+        StudentDetails.put("duongtt", "Tran Thai Duong");
+        StudentDetails.put("dungbt", "Bui Tien Dung");
+        StudentDetails.put("datht", "Hoang Tien Dat");
+        StudentDetails.put("huytv", "Trinh Viet Huy");
+        StudentDetails.put("tungnq", "Nguyen Quang Tung");
+        StudentDetails.put("tuandq", "Dinh Quang Tuan");
+        StudentDetails.put("linhln", "Le Ngoc Linh");
+        StudentDetails.put("trangnt", "Nguyen Thu Trang");
+        StudentDetails.put("baopq", "Pham Quang Bao");
+        StudentDetails.put("phuongnm", "Nguyen Minh Phuong");
+        StudentDetails.put("thanhtv", "Truong Van Thanh");
+        StudentDetails.put("bachlh", "Le Huy Bach");
+        StudentDetails.put("vancq", "Chu Quynh Van");
+        StudentDetails.put("tienlx", "Luong Xuan Tien");
+        StudentDetails.put("nampv", "Phan Van Nam");
+        StudentDetails.put("thangnd", "Nguyen Dinh Thang");
+        StudentDetails.put("dattt", "Tran Tien Dat");
+        StudentDetails.put("tienla", "Le Anh Tien");
+        StudentDetails.put("haiha", "Hoang An Hai");
+        StudentDetails.put("nghiatv", "Trinh Van Nghia");
+        StudentDetails.put("anhph", "Pham Hoang Anh");
+        StudentDetails.put("duclv", "Le Van Duc");
+        StudentDetails.put("sondn", "Dinh Ngoc Son");
+        StudentDetails.put("anhnn", "Nguyen Ngoc Anh");
+        StudentDetails.put("tulm", "Luu Minh Tu");
+        StudentDetails.put("ducch", "Chu Hong Duc");
+        StudentDetails.put("minhvq", "Vu Quang Minh");
+        return StudentDetails;
+    }
+    
 }

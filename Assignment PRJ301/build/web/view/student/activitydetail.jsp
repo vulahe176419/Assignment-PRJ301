@@ -40,5 +40,6 @@
         </c:forEach>
     </tr>  
 </c:forEach>
+<a href="studenthome" class="back-button">Back</a>
 </body>
 </html>

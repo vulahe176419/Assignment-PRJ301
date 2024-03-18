@@ -15,9 +15,8 @@
     </head>
     <body class="lechome-body">
         <div class="lechome-con">
-            <c:forEach items="${requestScope.lecturers}" var="lec">
-                <a class="lec-a" href="timetable?id=${lec.id}">Weekly timetable (Thời khóa biểu từng tuần)</a><br>
-            </c:forEach>
+            <a class="lec-a" href="timetable?id=${requestScope.lecturers.id}">Weekly timetable (Thời khóa biểu từng tuần)</a><br>
+            <a class="lec-a" href="../subjectdetail">Subjects Detail (Chi tiết các môn học)</a><br>
             <a class="lec-a" href="../logout">Logout</a>
         </div>
     </body>

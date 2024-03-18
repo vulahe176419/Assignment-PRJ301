@@ -21,6 +21,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Map;
+import util.DetailsName;
 
 /**
  *
@@ -52,6 +54,10 @@ public class AttendanceTakingController extends BaseRBACController {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account,ArrayList<Role> roles) throws ServletException, IOException {
         int leid = Integer.parseInt(req.getParameter("id"));
+        
+        Map<String, String> studentDetails = DetailsName.getStudentDetails();
+        
+        req.setAttribute("studentDetails", studentDetails);
         LessionDBContext lesDB = new LessionDBContext();
         ArrayList<Attendance> atts = lesDB.getAttendancesByLession(leid);
         req.setAttribute("atts", atts);
