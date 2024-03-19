@@ -5,7 +5,7 @@
 package dal;
 
 import entity.Attendance;
-import entity.Lecturer;
+import entity.Student;
 import entity.Student;
 import entity.StudentGroup;
 import entity.Subject;
@@ -45,20 +45,21 @@ public class StudentDBContext extends DBContext<Student> {
         return students;
     }
 
-
-    public Student getStudentIdByName(String sname) {
+    public Student getStudentIdByUsername(String username) {
         Student students = null;
         try {
-            String sql = "SELECT sid "
-                    + "FROM Student"
-                    + "WHERE sname = ?";
+            String sql = "SELECT s.sid \n"
+                    + "                    FROM Student s\n"
+                    + "                    JOIN Account a ON s.sname = a.username \n"
+                    + "                    WHERE a.username = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, sname);
+            stm.setString(1, username);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 students = new Student();
                 students.setId(rs.getInt("sid"));
             }
+
         } catch (SQLException ex) {
             Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -87,22 +88,109 @@ public class StudentDBContext extends DBContext<Student> {
 
     @Override
     public void insert(Student entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            String sql = "INSERT INTO Student \n"
+                    + "           (sid,sname)\n"
+                    + "     VALUES (?, ?)";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, entity.getId());
+            stm.setString(2, entity.getName());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void update(Student entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            String sql = "UPDATE [Student]\n"
+                    + "   SET [sname] = ?\n"
+                    + " WHERE [sid] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, entity.getName());
+            stm.setInt(2, entity.getId());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void delete(Student entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            String sql = "DELETE FROM [Student]\n"
+                    + "      WHERE sid= ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, entity.getId());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public ArrayList<Student> searchById(int sid) {
+        ArrayList<Student> students = new ArrayList<>();
+        PreparedStatement stm = null;
+        try {
+            String sql = "SELECT sid, sname FROM Student";
+            if (sid != 0) {
+                sql += " WHERE sid = ?";
+            }
+            stm = connection.prepareStatement(sql);
+
+            if (sid != 0) {
+                stm.setInt(1, sid);
+            }
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Student s = new Student();
+                s.setId(rs.getInt("sid"));
+                s.setName(rs.getString("sname"));
+                students.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (stm != null && !stm.isClosed()) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return students;
     }
 
     @Override
     public Student get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PreparedStatement stm = null;
+        try {
+            String sql = "SELECT  \n"
+                    + "	sid,sname,\n"
+                    + "FROM Student WHERE sid =?";
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                Student s = new Student();
+                s.setId(rs.getInt("id"));
+                s.setName(rs.getString("name"));
+                return s;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (!stm.isClosed()) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
     }
 
 }

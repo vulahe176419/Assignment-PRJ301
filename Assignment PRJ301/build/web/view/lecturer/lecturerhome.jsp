@@ -17,7 +17,7 @@
         <div class="lechome-con">
             <a class="lec-a" href="timetable?id=${lecturers.id}">Weekly timetable (Thời khóa biểu từng tuần)</a><br>
             <a class="lec-a" href="../subjectdetail">Subjects Detail (Chi tiết các môn học)</a><br>
-            <a class="lec-a" href="../logout">Logout</a>
+            <a class="lec-logout" href="../logout">Logout</a>
         </div>
     </body>
 </html>

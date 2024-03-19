@@ -12,6 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Slot detail</title>
+        <link rel="stylesheet" type="text/css" href="../css/styles.css">
     </head>
     <body>
         <h1>Slot detail</h1>
@@ -51,6 +52,11 @@
         </c:forEach>
     </tr>  
 </c:forEach>
-<a href="timetable?id=1" class="back-button">Back</a>
+<button id="backButton">Back</button>
+<script>
+    document.getElementById("backButton").addEventListener("click", function () {
+        window.history.back();
+    });
+</script>
 </body>
 </html>

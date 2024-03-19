@@ -1,6 +1,6 @@
 <%-- 
-    Document   : lecturerhome
-    Created on : 6 Mar 2024, 18:26:11
+    Document   : staffhome
+    Created on : 19 Mar 2024, 16:56:45
     Author     : leanh
 --%>
 
@@ -15,8 +15,8 @@
     </head>
     <body class="lechome-body">
         <div class="lechome-con">
-            <a class="lec-a" href="timetable?id=${lecturers.id}">Weekly timetable (Thời khóa biểu từng tuần)</a><br>
             <a class="lec-a" href="../subjectdetail">Subjects Detail (Chi tiết các môn học)</a><br>
+            <a class="lec-a" href="studentlist">Student Management (Quản lí học sinh)</a><br>
             <a class="lec-logout" href="../logout">Logout</a>
         </div>
     </body>

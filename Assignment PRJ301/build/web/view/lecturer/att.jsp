@@ -12,9 +12,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>University Academic Portal</title>
+        <link rel="stylesheet" type="text/css" href="../css/styles.css">
     </head>
     <body>
-        
+
         <form action="att" method="POST">
             <input type="hidden" name="id" value="${param.id}"/>
             <table border="1px">
@@ -47,6 +48,12 @@
             <input type="submit" value="Save"/><br>
             <a href="timetable?id=1" class="backButton">Back</a>
         </form>
+        <button id="backButton">Back</button>
+        <script>
+            document.getElementById("backButton").addEventListener("click", function () {
+                window.history.back();
+            });
+        </script>
     </body>
 </html>
 

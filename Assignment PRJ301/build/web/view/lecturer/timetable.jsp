@@ -64,7 +64,7 @@
             </c:forEach>
         </table> 
         <div class="lec-footer">
-            <a href="lecturerhome" class="lec-link">Back to Home</a><br>
+            <a href="lecturerhome" class="backButton">Back</a><br>
         </div>
     </body>
 </html>

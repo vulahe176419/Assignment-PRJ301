@@ -1,7 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <servlet>
+        <servlet-name>StudentListController</servlet-name>
+        <servlet-class>controller.staff.StudentListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertStudentController</servlet-name>
+        <servlet-class>controller.staff.InsertStudentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateStudentController</servlet-name>
+        <servlet-class>controller.staff.UpdateStudentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteStudentController</servlet-name>
+        <servlet-class>controller.staff.DeleteStudentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchStudentController</servlet-name>
+        <servlet-class>controller.staff.SearchStudentController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StaffHomeController</servlet-name>
+        <url-pattern>/staff/staffhome</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StudentListController</servlet-name>
+        <url-pattern>/staff/studentlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertStudentController</servlet-name>
+        <url-pattern>/staff/insertstudent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateStudentController</servlet-name>
+        <url-pattern>/staff/updatestudent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteStudentController</servlet-name>
+        <url-pattern>/staff/deletestudent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchStudentController</servlet-name>
+        <url-pattern>/staff/searchstudent</url-pattern>
+    </servlet-mapping>
     <session-config>
-        <session-timeout>30</session-timeout> <!-- Timeout value in minutes -->
+        <session-timeout>30</session-timeout>
+        <!-- Timeout value in minutes -->
     </session-config>
     <servlet>
         <servlet-name>LoginController</servlet-name>
@@ -46,6 +91,10 @@
     <servlet>
         <servlet-name>SubjectDetailController</servlet-name>
         <servlet-class>controller.student.SubjectDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffHomeController</servlet-name>
+        <servlet-class>controller.staff.StaffHomeController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>

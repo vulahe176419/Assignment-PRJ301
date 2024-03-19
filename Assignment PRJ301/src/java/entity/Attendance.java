@@ -4,6 +4,7 @@
  */
 package entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -17,6 +18,9 @@ public class Attendance {
     private String description;
     private boolean present;
     private Date time;
+    private Lecturer lecturer;
+    private StudentGroup group;
+    private Subject subject;
 
     public int getId() {
         return id;
@@ -64,6 +68,30 @@ public class Attendance {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public Lecturer getLecturer() {
+        return lecturer;
+    }
+
+    public void setLecturer(Lecturer lecturer) {
+        this.lecturer = lecturer;
+    }
+
+    public StudentGroup getGroup() {
+        return group;
+    }
+
+    public void setGroup(StudentGroup group) {
+        this.group = group;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
     
 }

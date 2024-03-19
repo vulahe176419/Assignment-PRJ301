@@ -54,18 +54,13 @@ public class AttendanceDBContext extends DBContext<Attendance> {
         ArrayList<Attendance> atts = new ArrayList<>();
         try {
             String sql = """
-                         SELECT sub.suname
-                         \t   , g.gname,
-                         \t   l.lname
-                               ,s.sname
-                               ,description
-                               ,isPresent
-                           FROM Attendance A INNER JOIN Lession le ON le.leid= a.leid
-                         \t\t\t\t\tINNER JOIN StudentGroup g ON g.gid=le.gid
-                         \t\t\t\t\tINNER JOIN [Subject] sub ON sub.subid=g.subid
-                         \t\t\t\t\tINNER JOIN Student s ON s.sid=a.sid
-                         \t\t\t\t\tINNER JOIN Lecturer l ON l.lid=le.lid
-                           WHERE a.sid=?""";
+                         SELECT sub.suname, g.gname, l.lname, s.sname, description, isPresent
+                                      FROM Attendance A INNER JOIN Lession le ON le.leid = a.leid 
+                                      INNER JOIN StudentGroup g ON g.gid = le.gid 
+                                      INNER JOIN [Subject] sub ON sub.subid = g.subid 
+                                      INNER JOIN Student s ON s.sid = a.sid 
+                                      INNER JOIN Lecturer l ON l.lid = le.lid 
+                                      WHERE a.sid = ?""";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, sid);
             ResultSet rs = stm.executeQuery();
@@ -75,13 +70,20 @@ public class AttendanceDBContext extends DBContext<Attendance> {
                 Lecturer l = new Lecturer();
                 Attendance a = new Attendance();
                 Subject sub = new Subject();
-
-                sub.setName(rs.getString("suname"));
-                l.setName(rs.getString("lname"));
-                a.setDescription(rs.getString("description"));
-                a.setPresent(rs.getBoolean("isPresent"));
+                
                 s.setId(rs.getInt("sid"));
                 s.setName(rs.getString("sname"));
+                sub.setName(rs.getString("suname"));
+                l.setName(rs.getString("lname"));
+                g.setName(rs.getString("gname"));
+                a.setDescription(rs.getString("description"));
+                a.setPresent(rs.getBoolean("isPresent"));
+                
+                a.setStudent(s);
+                a.setLecturer(l);
+                a.setGroup(g);
+                a.setSubject(sub);
+                
                 atts.add(a);
             }
 

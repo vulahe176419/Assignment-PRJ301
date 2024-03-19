@@ -67,6 +67,5 @@
             </c:forEach>
         </table>
         <a href="studenthome" class="backButton">Back</a>
-
     </body>
 </html>

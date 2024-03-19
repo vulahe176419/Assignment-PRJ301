@@ -74,18 +74,23 @@ public class LoginController extends HttpServlet {
 
             boolean isStudent = false;
             boolean isLecturer = false;
+            boolean isStaff = false;
 
             for (Role role : roles) {
                 if (role.getName().equalsIgnoreCase("Student")) {
                     isStudent = true;
                 } else if (role.getName().equalsIgnoreCase("Lecturer")) {
                     isLecturer = true;
+                } else if (role.getName().equalsIgnoreCase("Staff")) {
+                    isStaff = true;
                 }
             }
             if (isStudent) {
                 response.sendRedirect("student/studenthome");
             } else if (isLecturer) {
                 response.sendRedirect("lecturer/lecturerhome");
+            } else if (isStaff) {
+                response.sendRedirect("staff/staffhome");
             } else {
                 response.getWriter().println("login failed!");
             }
