@@ -267,7 +267,7 @@ public class LessionDBContext extends DBContext<Lession> {
                 le.setLecturer(l);
                 le.setId(rs.getInt("leid"));
                 le.setDate(rs.getDate("date"));
-
+                le.setAttended(rs.getBoolean("isAttended"));
                 g.setId(rs.getInt("gid"));
                 g.setName(rs.getString("gname"));
                 sub.setId(rs.getInt("subid"));

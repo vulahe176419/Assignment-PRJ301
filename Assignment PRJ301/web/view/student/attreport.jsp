@@ -19,21 +19,26 @@
         <table class="subdetail-table" border="1">
             <thead>
                 <tr>
-                    <th>Class</th>
+                    <th>Subject Code</th>
                     <th>Subject Name</th>
+                    <th>Class</th>
                     <th>Lecturer</th>
                     <th>Description</th>
                     <th>Attend</th>
+                    <th>Date</th>
                 </tr>
             </thead>
             <tbody>
             <c:forEach items="${requestScope.atts}" var="a">
                 <tr>
-                    <td>${a.group.name}</td>
+                    <td>${a.subject.name}</td>
                     <td>${subjectDetails[a.subject.name]}</td>
-                    <td>${subjectDetails[a.lecturer.name]}</td>
+                    <td>${a.group.name}</td>
+                    <td>${lecturerDetails[a.lecturer.name]} (${a.lecturer.name})</td>
                     <td>${a.description}</td>
-                    <td>${a.isPresent}</td>
+                    <td>${a.present ? 'Attended' : 'Present'}
+                    </td>
+                    <td><fmt:formatDate value="${a.time}" pattern="dd/MM/yyyy"/></td>
                 </tr>
             </c:forEach>
         </tbody>

@@ -28,12 +28,26 @@
                         <p>Course: ${subjectDetails[les.group.subject.name]}</p>
                         <p>Room: ${les.room.name}</p>
                         <p>Attendance: 
-                            <c:if test="${les.attended}">
-                                Attended
-                            </c:if>
-                            <c:if test="${!les.attended}">
-                                Not yet
-                            </c:if>
+                            <c:set var="now" value="<%= new java.util.Date() %>"/>
+                            <c:set var="dateFormat" value="<%= new java.text.SimpleDateFormat(\"yyyy-MM-dd\") %>"/>
+                            <c:set var="today" value="${dateFormat.format(now)}" />
+                            <c:choose>
+                                <c:when test="${today lt les.date}">
+                                    <span class="lec-status">Not yet</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:if test="${(today eq les.date) or (today gt les.date)}">
+                                        <c:choose>
+                                            <c:when test="${les.attended}">
+                                                <span class="lec-status-at">Attended</span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span class="lec-status-abs">Absent</span>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:if>
+                                </c:otherwise>
+                            </c:choose>     
                         </p>
                     </c:if>
                 </c:forEach>

@@ -54,8 +54,8 @@ public class AttendanceDBContext extends DBContext<Attendance> {
         ArrayList<Attendance> atts = new ArrayList<>();
         try {
             String sql = """
-                         SELECT sub.suname, g.gname, l.lname, s.sname, description, isPresent
-                                      FROM Attendance A INNER JOIN Lession le ON le.leid = a.leid 
+                         SELECT sub.suname, g.gname, l.lname, s.sname, a.description, a.isPresent, a.capturedtime
+                                      FROM Attendance a INNER JOIN Lession le ON le.leid = a.leid 
                                       INNER JOIN StudentGroup g ON g.gid = le.gid 
                                       INNER JOIN [Subject] sub ON sub.subid = g.subid 
                                       INNER JOIN Student s ON s.sid = a.sid 
@@ -71,14 +71,14 @@ public class AttendanceDBContext extends DBContext<Attendance> {
                 Attendance a = new Attendance();
                 Subject sub = new Subject();
                 
-                s.setId(rs.getInt("sid"));
+                s.setId(sid); 
                 s.setName(rs.getString("sname"));
                 sub.setName(rs.getString("suname"));
                 l.setName(rs.getString("lname"));
                 g.setName(rs.getString("gname"));
                 a.setDescription(rs.getString("description"));
                 a.setPresent(rs.getBoolean("isPresent"));
-                
+                a.setTime(rs.getDate("capturedtime"));
                 a.setStudent(s);
                 a.setLecturer(l);
                 a.setGroup(g);
